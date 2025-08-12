@@ -4,6 +4,7 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel
 import json
+from pathlib import Path
 from datetime import datetime
 
 # create app
@@ -12,11 +13,30 @@ app = FastAPI(
 )
 
 # load model
+model = None
+
+def _load_model():
+    here = Path(__file__).resolve().parent
+    candidates = [
+        here / "sentiment_model.pkl",
+        here.parent / "sentiment_model.pkl",
+    ]
+    for p in candidates:
+        if p.is_file():
+            return joblib.load(p)
+    raise FileNotFoundError("Model not found")
+
 try:
-    model = joblib.load("sentiment_model.pkl")
-except FileNotFoundError:
-    print("Model file not found")
+    model = _load_model()
+except Exception as e:
+    print(f"Failed to load model: {e}")
     model = None
+
+# try:
+#     model = joblib.load("sentiment_model.pkl")
+# except FileNotFoundError:
+#     print("Model file not found")
+#     model = None
 
 # create prediction request model
 class PredictionRequest(BaseModel):

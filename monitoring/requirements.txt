@@ -4,3 +4,4 @@ joblib
 streamlit
 datetime
 matplotlib
+pytest
