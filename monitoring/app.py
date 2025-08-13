@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import os
 import pandas as pd
 from sklearn.metrics import accuracy_score, precision_score
+from pathlib import Path
 
 # show banner
 alert_placeholder = st.empty()
@@ -12,10 +13,12 @@ alert_placeholder = st.empty()
 st.title('Movie Review Sentiment Monitoring App')
 st.markdown("This app will be used to monitor the backend FastAPI application by plotting different data to help in analysing model performance.")
 
+DATA_PATH = Path(__file__).with_name("IMDB Dataset.csv")
+
 # cache data source only
 @st.cache_data
 def load_data():
-    df = pd.read_csv("IMDB Dataset.csv")
+    df = pd.read_csv(DATA_PATH)
     df["sentence_length"] = df["review"].astype(str).apply(lambda x: len(x.split()))
     return df
 

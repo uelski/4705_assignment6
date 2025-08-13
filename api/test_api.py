@@ -1,4 +1,3 @@
-import pytest
 import main
 import tempfile
 from fastapi.testclient import TestClient
