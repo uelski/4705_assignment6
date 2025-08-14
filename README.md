@@ -76,8 +76,8 @@ Create an EC2 Instance:
 - This step is important because you will need your .pem file to ssh into the ec2 instance
 - Under Network Settings click the Edit button on the top right to set security group details. We need to set three rules, one for SSH via your IP, one to access port 8000 for the FastAPI and one to access port 8501 for the Streamlit app.
 - Set type: SSH, Protocol/Port: TCP 22, Source: My IP (auto-fills your public IPv4)
-- Set type: Custom TCP, Port range: 8000, Source (IPv4): 0.0.0.0/0
-- Set type: Custom TCP, Port range: 8501, Source (IPv4): 0.0.0.0/0
+- Set type: Custom TCP, Port range: 8000, Source type: Anywhere, Source (IPv4): 0.0.0.0/0
+- Set type: Custom TCP, Port range: 8501, Source type: Anywhere, Source (IPv4): 0.0.0.0/0
 - Finally, select 'Launch Instance'
 
 Now you can connect to your instance, download the necessary packages, git clone, and run the applications in your EC2 instance.
